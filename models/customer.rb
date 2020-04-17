@@ -87,4 +87,30 @@ class Customer
     films = SqlRunner.run(sql, values)
     return Film.map_items(films).length()
   end
+
+  def tickets()
+    sql = "SELECT * FROM tickets where customer_id = $1"
+    values = [@id]
+    ticket_data = SqlRunner.run(sql, values)
+    return ticket_data.map { |ticket| Ticket.new(ticket) }
+  end
+
+  def films_unsorted()
+    sql = "
+    SELECT films.*
+        FROM films
+        INNER JOIN tickets
+        ON tickets.film_id = films.id
+        WHERE customer_id = $1"
+    values = [@id]
+    film_data = SqlRunner.run(sql, values)
+    return film_data.map { |film| Film.new(film) }
+  end
+
+  def remaining_funds()
+    films = self.films_unsorted()
+    film_fees = films.map { |film| film.price }
+    combined_costs = film_fees.sum
+    return @funds - combined_costs
+  end
 end
