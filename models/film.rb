@@ -87,4 +87,17 @@ class Film
     customers = SqlRunner.run(sql, values)
     return Customer.map_items(customers).length()
   end
+
+  def self.cheapest_film()
+    sql = "SELECT * FROM films ORDER BY films.price ASC LIMIT 1"
+    films = SqlRunner.run(sql)
+    return Film.map_items(films)
+  end
+
+  def self.dearest_film()
+    sql = "SELECT * FROM films ORDER BY films.price DESC LIMIT 1"
+    films = SqlRunner.run(sql)
+    return Film.map_items(films)
+  end
+
 end
