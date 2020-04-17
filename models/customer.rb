@@ -111,7 +111,6 @@ class Customer
     films = self.films_unsorted()
     film_fees = films.map { |film| film.price }
     combined_costs = film_fees.sum
-    @funds -= combined_costs
-    return @funds
+    return @funds - combined_costs
   end
 end
