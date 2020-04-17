@@ -75,17 +75,7 @@ class Customer
 
   # How many film tickets did a customer buy?
   def tickets_count()
-    sql = "
-        SELECT films.*
-        FROM films
-        INNER JOIN tickets
-        ON tickets.film_id = films.id
-        WHERE customer_id = $1
-        ORDER BY films.title ASC;
-        "
-    values = [@id]
-    films = SqlRunner.run(sql, values)
-    return Film.map_items(films).length()
+    return films().length()
   end
 
   def tickets()
