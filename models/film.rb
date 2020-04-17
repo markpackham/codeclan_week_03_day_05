@@ -73,6 +73,7 @@ class Film
     return Customer.map_items(customers)
   end
 
+  # How many customers went to see a film?
   def customers_count()
     sql = "
         SELECT customers.*
