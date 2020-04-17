@@ -84,7 +84,7 @@ class Film
     return Film.map_items(films)
   end
 
-  def self.dearest_film()
+  def self.priciest_film()
     sql = "SELECT * FROM films ORDER BY films.price DESC LIMIT 1"
     films = SqlRunner.run(sql)
     return Film.map_items(films)
