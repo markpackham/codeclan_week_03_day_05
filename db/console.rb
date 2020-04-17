@@ -72,6 +72,9 @@ screening4 = Screening.new({ "film_id" => film2.id, "time" => "04:00" })
 screening5 = Screening.new({ "film_id" => film3.id, "time" => "05:00" })
 screening6 = Screening.new({ "film_id" => film3.id, "time" => "06:00" })
 screening7 = Screening.new({ "film_id" => film4.id, "time" => "07:00" })
+screening8 = Screening.new({ "film_id" => film1.id, "time" => "02:00" })
+screening9 = Screening.new({ "film_id" => film1.id, "time" => "03:00" })
+screening10 = Screening.new({ "film_id" => film1.id, "time" => "04:00" })
 
 screening1.save()
 screening2.save()
@@ -80,6 +83,9 @@ screening4.save()
 screening5.save()
 screening6.save()
 screening7.save()
+screening8.save()
+screening9.save()
+screening10.save()
 
 binding.pry
 
