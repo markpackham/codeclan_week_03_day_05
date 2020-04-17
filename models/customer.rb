@@ -59,6 +59,13 @@ class Customer
     return Customer.map_items(customers)
   end
 
+  # Average Customer Funds
+  def self.average_funds()
+    sql = "SELECT AVG(customers.funds) FROM customers;"
+    customers = SqlRunner.run(sql)
+    return customers[0]["avg"].to_i
+  end
+
   def films()
     sql = "
         SELECT films.*

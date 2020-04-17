@@ -59,6 +59,13 @@ class Film
     return Film.map_items(films)
   end
 
+  # Average Film Price
+  def self.average_price()
+    sql = "SELECT AVG(films.price) FROM films;"
+    films = SqlRunner.run(sql)
+    return films[0]["avg"].to_i
+  end
+
   def customers()
     sql = "
         SELECT customers.*
@@ -89,5 +96,4 @@ class Film
     films = SqlRunner.run(sql)
     return Film.map_items(films)
   end
-
 end
