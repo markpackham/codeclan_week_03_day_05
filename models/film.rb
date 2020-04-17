@@ -15,17 +15,20 @@ class Film
     return result
   end
 
-  def self.all()
-    sql = "SELECT * FROM films"
-    films = SqlRunner.run(sql)
-    return Film.map_items(films)
-  end
-
+  # Delete
   def self.delete_all()
     sql = "DELETE FROM films"
     SqlRunner.run(sql)
   end
 
+  def delete()
+    sql = "DELETE FROM films
+          WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+  #Create
   def save()
     sql = "INSERT INTO films
         (
@@ -42,10 +45,18 @@ class Film
     @id = film["id"].to_i
   end
 
+  #Update
   def update()
     sql = "UPDATE films SET title = $1, price = $2 WHERE id = $3"
     values = [@title, @price, @id]
     SqlRunner.run(sql, values)
+  end
+
+  # Read
+  def self.all()
+    sql = "SELECT * FROM films"
+    films = SqlRunner.run(sql)
+    return Film.map_items(films)
   end
 
   def customers()
@@ -54,7 +65,8 @@ class Film
         FROM customers
         INNER JOIN tickets
         ON tickets.customer_id = customers.id
-        WHERE film_id = $1;
+        WHERE film_id = $1
+        ORDER BY customers.name ASC;
         "
     values = [@id]
     customers = SqlRunner.run(sql, values)
