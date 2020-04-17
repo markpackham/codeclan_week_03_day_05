@@ -66,6 +66,13 @@ class Film
     return films[0]["avg"].to_i
   end
 
+  # Total Cinema Earnings
+  def self.total_earnings()
+    sql = "SELECT SUM(films.price) FROM films;"
+    films = SqlRunner.run(sql)
+    return films[0]["sum"].to_i
+  end
+
   def customers()
     sql = "
         SELECT customers.*
