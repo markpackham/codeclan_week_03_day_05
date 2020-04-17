@@ -75,17 +75,7 @@ class Film
 
   # How many customers went to see a film?
   def customers_count()
-    sql = "
-        SELECT customers.*
-        FROM customers
-        INNER JOIN tickets
-        ON tickets.customer_id = customers.id
-        WHERE film_id = $1
-        ORDER BY customers.name ASC;
-        "
-    values = [@id]
-    customers = SqlRunner.run(sql, values)
-    return Customer.map_items(customers).length()
+    return customers().length()
   end
 
   def self.cheapest_film()
