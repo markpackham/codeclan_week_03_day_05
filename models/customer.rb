@@ -112,9 +112,6 @@ class Customer
     film_fees = films.map { |film| film.price }
     combined_costs = film_fees.sum
     @funds -= combined_costs
-    sql = "UPDATE customers SET name = $1, funds = $2 WHERE id = $3"
-    values = [@name, @funds, @id]
-    SqlRunner.run(sql, values)
     return @funds
   end
 end
