@@ -59,6 +59,13 @@ class Ticket
     return Ticket.map_items(tickets)
   end
 
+  def self.find_id(id)
+    sql = "SELECT * FROM tickets WHERE tickets.id = $1;"
+    values = [id]
+    tickets = SqlRunner.run(sql, values)
+    return Ticket.map_items(tickets)
+  end
+
   def film()
     sql = "SELECT * FROM films WHERE id = $1;"
     values = [@film_id]

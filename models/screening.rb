@@ -59,6 +59,20 @@ class Screening
     return Screening.map_items(screenings)
   end
 
+  def self.find_id(id)
+    sql = "SELECT * FROM screenings WHERE screenings.id = $1;"
+    values = [id]
+    screenings = SqlRunner.run(sql, values)
+    return Screening.map_items(screenings)
+  end
+
+  def self.find_time(time)
+    sql = "SELECT * FROM screenings WHERE screenings.time = $1;"
+    values = [time]
+    screenings = SqlRunner.run(sql, values)
+    return Screening.map_items(screenings)
+  end
+
   def film()
     sql = "SELECT * FROM films WHERE id = $1;"
     values = [@film_id]
