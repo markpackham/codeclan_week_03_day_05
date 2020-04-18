@@ -87,6 +87,19 @@ class Film
     return films[0]["sum"].to_i
   end
 
+  def screenings()
+    sql = "
+        SELECT screenings.*
+        FROM screenings
+        INNER JOIN films
+        ON screenings.film_id = films.id
+        WHERE screenings.film_id = $1;
+        "
+    values = [@id]
+    screenings = SqlRunner.run(sql, values)
+    return Screening.map_items(screenings)
+  end
+
   def customers()
     sql = "
         SELECT customers.*
