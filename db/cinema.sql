@@ -15,6 +15,7 @@ CREATE TABLE customers (
 CREATE TABLE films (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
+    genre VARCHAR(255),
     price INT
 );
 

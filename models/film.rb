@@ -2,11 +2,12 @@ require_relative("../db/sql_runner")
 
 class Film
   attr_reader :id
-  attr_accessor :title, :price
+  attr_accessor :title, :genre, :price
 
   def initialize(options)
     @id = options["id"].to_i if options["id"]
     @title = options["title"]
+    @genre = options["genre"]
     @price = options["price"].to_i
   end
 
@@ -33,22 +34,23 @@ class Film
     sql = "INSERT INTO films
         (
           title,
+          genre,
           price
         )
         VALUES
         (
-          $1, $2
+          $1, $2, $3
         )
         RETURNING id"
-    values = [@title, @price]
+    values = [@title, @genre, @price]
     film = SqlRunner.run(sql, values).first
     @id = film["id"].to_i
   end
 
   #Update
   def update()
-    sql = "UPDATE films SET title = $1, price = $2 WHERE id = $3;"
-    values = [@title, @price, @id]
+    sql = "UPDATE films SET title = $1, genre = $2, price = $3 WHERE id = $4;"
+    values = [@title, @genre, @price, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -69,6 +71,21 @@ class Film
   def self.find_title(title)
     sql = "SELECT * FROM films WHERE films.title = $1;"
     values = [title]
+    films = SqlRunner.run(sql, values)
+    return Film.map_items(films)
+  end
+
+  def self.find_genre(genre)
+    sql = "SELECT * FROM films WHERE films.genre = $1;"
+    values = [genre]
+    films = SqlRunner.run(sql, values)
+    return Film.map_items(films)
+  end
+
+  # Show all films execpt the genre you hate
+  def self.not_genre(genre)
+    sql = "SELECT * FROM films WHERE NOT films.genre = $1;"
+    values = [genre]
     films = SqlRunner.run(sql, values)
     return Film.map_items(films)
   end
