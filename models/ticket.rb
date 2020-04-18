@@ -17,13 +17,13 @@ class Ticket
 
   # Delete
   def self.delete_all()
-    sql = "DELETE FROM tickets"
+    sql = "DELETE FROM tickets;"
     SqlRunner.run(sql)
   end
 
   def delete()
     sql = "DELETE FROM tickets
-          WHERE id = $1"
+          WHERE id = $1;"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -47,27 +47,27 @@ class Ticket
 
   # Update
   def update()
-    sql = "UPDATE tickets SET customer_id = $1, film_id = $2 WHERE id = $3"
+    sql = "UPDATE tickets SET customer_id = $1, film_id = $2 WHERE id = $3;"
     values = [@customer_id, @film_id, @id]
     SqlRunner.run(sql, values)
   end
 
   # Read
   def self.all()
-    sql = "SELECT * FROM tickets"
+    sql = "SELECT * FROM tickets;"
     tickets = SqlRunner.run(sql)
     return Ticket.map_items(tickets)
   end
 
   def film()
-    sql = "SELECT * FROM films WHERE id = $1"
+    sql = "SELECT * FROM films WHERE id = $1;"
     values = [@film_id]
     film = SqlRunner.run(sql, values).first
     return Film.new(film)
   end
 
   def customer()
-    sql = "SELECT * FROM customers WHERE id = $1"
+    sql = "SELECT * FROM customers WHERE id = $1;"
     values = [@customer_id]
     customer = SqlRunner.run(sql, values).first
     return Customer.new(customer)

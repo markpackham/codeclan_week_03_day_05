@@ -17,13 +17,13 @@ class Screening
 
   # Delete
   def self.delete_all()
-    sql = "DELETE FROM screenings"
+    sql = "DELETE FROM screenings;"
     SqlRunner.run(sql)
   end
 
   def delete()
     sql = "DELETE FROM screenings
-          WHERE id = $1"
+          WHERE id = $1;"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -47,20 +47,20 @@ class Screening
 
   # Update
   def update()
-    sql = "UPDATE screenings SET film_id = $1, time = $2 WHERE id = $3"
+    sql = "UPDATE screenings SET film_id = $1, time = $2 WHERE id = $3;"
     values = [@film_id, @time, @id]
     SqlRunner.run(sql, values)
   end
 
   # Read
   def self.all()
-    sql = "SELECT * FROM screenings"
+    sql = "SELECT * FROM screenings;"
     screenings = SqlRunner.run(sql)
     return Screening.map_items(screenings)
   end
 
   def film()
-    sql = "SELECT * FROM films WHERE id = $1"
+    sql = "SELECT * FROM films WHERE id = $1;"
     values = [@film_id]
     film = SqlRunner.run(sql, values).first
     return Film.new(film)

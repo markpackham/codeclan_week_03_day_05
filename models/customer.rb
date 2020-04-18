@@ -17,13 +17,13 @@ class Customer
 
   # Delete
   def self.delete_all()
-    sql = "DELETE FROM customers"
+    sql = "DELETE FROM customers;"
     SqlRunner.run(sql)
   end
 
   def delete()
     sql = "DELETE FROM customers
-          WHERE id = $1"
+          WHERE id = $1;"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -47,14 +47,14 @@ class Customer
 
   # Update
   def update()
-    sql = "UPDATE customers SET name = $1, funds = $2 WHERE id = $3"
+    sql = "UPDATE customers SET name = $1, funds = $2 WHERE id = $3;"
     values = [@name, @funds, @id]
     SqlRunner.run(sql, values)
   end
 
   # Read
   def self.all()
-    sql = "SELECT * FROM customers"
+    sql = "SELECT * FROM customers;"
     customers = SqlRunner.run(sql)
     return Customer.map_items(customers)
   end
@@ -100,7 +100,7 @@ class Customer
   end
 
   def tickets()
-    sql = "SELECT * FROM tickets where customer_id = $1"
+    sql = "SELECT * FROM tickets where customer_id = $1;"
     values = [@id]
     ticket_data = SqlRunner.run(sql, values)
     return ticket_data.map { |ticket| Ticket.new(ticket) }
@@ -112,7 +112,7 @@ class Customer
         FROM films
         INNER JOIN tickets
         ON tickets.film_id = films.id
-        WHERE customer_id = $1"
+        WHERE customer_id = $1;"
     values = [@id]
     film_data = SqlRunner.run(sql, values)
     return film_data.map { |film| Film.new(film) }
