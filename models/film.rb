@@ -17,13 +17,13 @@ class Film
 
   # Delete
   def self.delete_all()
-    sql = "DELETE FROM films"
+    sql = "DELETE FROM films;"
     SqlRunner.run(sql)
   end
 
   def delete()
     sql = "DELETE FROM films
-          WHERE id = $1"
+          WHERE id = $1;"
     values = [@id]
     SqlRunner.run(sql, values)
   end
@@ -47,15 +47,29 @@ class Film
 
   #Update
   def update()
-    sql = "UPDATE films SET title = $1, price = $2 WHERE id = $3"
+    sql = "UPDATE films SET title = $1, price = $2 WHERE id = $3;"
     values = [@title, @price, @id]
     SqlRunner.run(sql, values)
   end
 
   # Read
   def self.all()
-    sql = "SELECT * FROM films"
+    sql = "SELECT * FROM films;"
     films = SqlRunner.run(sql)
+    return Film.map_items(films)
+  end
+
+  def self.find_id(id)
+    sql = "SELECT * FROM films WHERE films.id = $1;"
+    values = [id]
+    films = SqlRunner.run(sql, values)
+    return Film.map_items(films)
+  end
+
+  def self.find_title(title)
+    sql = "SELECT * FROM films WHERE films.title = $1;"
+    values = [title]
+    films = SqlRunner.run(sql, values)
     return Film.map_items(films)
   end
 
@@ -93,13 +107,13 @@ class Film
   end
 
   def self.cheapest_film()
-    sql = "SELECT * FROM films ORDER BY films.price ASC LIMIT 1"
+    sql = "SELECT * FROM films ORDER BY films.price ASC LIMIT 1;"
     films = SqlRunner.run(sql)
     return Film.map_items(films)
   end
 
   def self.priciest_film()
-    sql = "SELECT * FROM films ORDER BY films.price DESC LIMIT 1"
+    sql = "SELECT * FROM films ORDER BY films.price DESC LIMIT 1;"
     films = SqlRunner.run(sql)
     return Film.map_items(films)
   end

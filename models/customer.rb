@@ -59,6 +59,20 @@ class Customer
     return Customer.map_items(customers)
   end
 
+  def self.find_id(id)
+    sql = "SELECT * FROM customers WHERE customers.id = $1;"
+    values = [id]
+    customers = SqlRunner.run(sql, values)
+    return Customer.map_items(customers)
+  end
+
+  def self.find_name(name)
+    sql = "SELECT * FROM customers WHERE customers.name = $1;"
+    values = [name]
+    customers = SqlRunner.run(sql, values)
+    return Customer.map_items(customers)
+  end
+
   # Average Customer Funds
   def self.average_funds()
     sql = "SELECT AVG(customers.funds) FROM customers;"
